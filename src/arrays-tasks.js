@@ -349,7 +349,7 @@ function createNDimensionalArray(/* n, size */) {
  *    flattenArray([1, 2, 3, 4]) => [1, 2, 3, 4]
  */
 function flattenArray(nestedArray) {
-  const result = nestedArray.flat();
+  const result = nestedArray.flat(Infinity);
   return result;
 }
 
@@ -383,8 +383,15 @@ function selectMany(/* arr, childrenSelector */) {
  *   calculateBalance([ [ 10, 8 ], [ 1, 5 ] ])  => (10 - 8) + (1 - 5) = 2 + -4 = -2
  *   calculateBalance([]) => 0
  */
-function calculateBalance(/* arr */) {
-  throw new Error('Not implemented');
+function calculateBalance(arr) {
+  const newArr = arr.map((item) => {
+    return item[0] - item[1];
+  });
+  return newArr.reduce((acc, el) => {
+    let result = acc;
+    result = acc + el;
+    return result;
+  }, 0);
 }
 
 /**
@@ -399,8 +406,18 @@ function calculateBalance(/* arr */) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  const newA = [];
+  function foo() {
+    const value = arr.splice(0, chunkSize);
+    newA.push(value);
+    if (arr.length) {
+      foo();
+    }
+  }
+  foo();
+
+  return newA;
 }
 
 /**
