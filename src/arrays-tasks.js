@@ -432,8 +432,14 @@ function createChunks(arr, chunkSize) {
  *    generateOdds(2) => [ 1, 3 ]
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  const arr = Array.from({ length: len }, () => -1);
+  let count = -1;
+  const result = arr.map(() => {
+    count += 2;
+    return count;
+  });
+  return result;
 }
 
 /**
@@ -464,8 +470,22 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  let count = 0;
+  arr.map((item) => {
+    if (
+      item === null ||
+      item === undefined ||
+      item === false ||
+      item === 0 ||
+      item === '' ||
+      Number.isNaN(item)
+    ) {
+      count += 1;
+    }
+    return count;
+  });
+  return count;
 }
 
 /**
