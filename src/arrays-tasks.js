@@ -501,8 +501,15 @@ function getIdentityMatrix(/* n */) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const newArr = [];
+  numbers.map((el, ind) => {
+    if (el % 2 !== 0) {
+      newArr.push(ind);
+    }
+    return newArr;
+  });
+  return newArr;
 }
 
 /**
@@ -515,8 +522,11 @@ function getIndicesOfOddNumbers(/* numbers */) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const result = arr.map((item) => {
+    return `#${item.toString(16).toUpperCase().padStart(6, '0')}`;
+  });
+  return result;
 }
 
 /**
@@ -533,8 +543,8 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 /**
@@ -549,8 +559,12 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  const result = [];
+  arr1.map((item) => {
+    return arr2.some((el) => el === item) ? result.push(item) : '';
+  });
+  return result;
 }
 
 /**
@@ -582,8 +596,31 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const newArr = [];
+  arr.map((item, index) => {
+    if (typeof item === 'string') {
+      const value = item.repeat(index + 1);
+      newArr.push(value.split(''));
+    } else if (typeof item === 'number') {
+      const value = String(item).repeat(index + 1);
+      const map = value.split('').map((el) => {
+        return Number(el);
+      });
+      newArr.push(map);
+    } else {
+      const param = item;
+      const value = `${String(item)} `.repeat(index + 1).split(' ');
+      value.pop();
+      const myArr = value.map(() => {
+        return param;
+      });
+      newArr.push(myArr);
+    }
+    return newArr;
+  });
+
+  return newArr.flat();
 }
 
 /**
