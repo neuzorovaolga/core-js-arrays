@@ -612,8 +612,31 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  const value = nums.reduce(
+    (acc, item) => {
+      if (!acc.current) {
+        acc.count = 1;
+        acc.maxCount = 1;
+        acc.current = item;
+      }
+      if (acc.current < item) {
+        const newCount = acc.count + 1;
+        acc.count = newCount;
+        acc.current = item;
+      }
+      if (acc.current > item) {
+        acc.count = 1;
+        acc.current = item;
+      }
+      if (acc.count > acc.maxCount) {
+        acc.maxCount = acc.count;
+      }
+      return acc;
+    },
+    { count: 0, maxCount: 0, current: null }
+  );
+  return value.maxCount;
 }
 
 /**
@@ -670,8 +693,18 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  if (n < 0) {
+    const newArr = arr.splice(0, -n);
+    arr.push(newArr);
+    return arr.flat();
+  }
+  if (n > 0) {
+    const newArr = arr.splice(arr.length - n, arr.length);
+    arr.unshift(newArr);
+    return arr.flat();
+  }
+  return arr;
 }
 
 /**
@@ -687,8 +720,30 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const words = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  const numbers = arr.map((el) => {
+    const value = words.indexOf(el);
+    return value;
+  });
+  numbers.sort();
+  const result = numbers.map((el) => {
+    const index = words[el];
+
+    return index;
+  });
+  return result;
 }
 
 /**
