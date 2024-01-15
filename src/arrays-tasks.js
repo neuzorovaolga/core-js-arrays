@@ -280,7 +280,7 @@ function getTail(arr, n) {
  *    doubleArray([]) => []
  */
 function doubleArray(arr) {
-  const result = [...arr, ...arr];
+  const result = arr.concat(arr);
   if (arr.length) {
     return result;
   }
@@ -366,8 +366,9 @@ function flattenArray(nestedArray) {
  *   selectMany([[1, 2], [3, 4], [5, 6]], (x) => x) =>   [ 1, 2, 3, 4, 5, 6 ]
  *   selectMany(['one','two','three'], (x) => x.split('')) =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const resultArr = arr.flatMap(childrenSelector);
+  return resultArr;
 }
 
 /**
@@ -506,8 +507,21 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let count = 0;
+  const nullArr = new Array(n).fill(0);
+  const matrixArr = nullArr.map(() => {
+    const lineArray = new Array(n).fill(0);
+    return lineArray;
+  });
+  const resultArray = matrixArr.map((item) => {
+    const index = count;
+    count += 1;
+    const newArray = item;
+    newArray[index] = 1;
+    return newArray;
+  });
+  return resultArray;
 }
 
 /**
